@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Concurrent;
@@ -17,10 +17,13 @@ public partial class AuftragsstarterViewModel : ObservableObject
     public AuftragsstarterViewModel()
     {
         StrSearchString = string.Empty;
+        // Initialize the collection here
+        _ocListOfFolders = []; 
     }
 
     [ObservableProperty]
-    private ObservableCollection<MainWindowViewModel>? _ocListOfFolders;
+    // Make sure the backing field is initialized
+    private ObservableCollection<MainWindowViewModel> _ocListOfFolders; 
 
     [ObservableProperty]
     private MainWindowViewModel? _selectedFolder;
@@ -51,9 +54,11 @@ public partial class AuftragsstarterViewModel : ObservableObject
     {
         StrSearchString = "Dummysearchstring";
 
+        // Don't set OcListOfFolders to null if the search string is empty, 
+        // just clear it if it's not null.
         if (StrSearchString.Length == 0)
         {
-            OcListOfFolders = null;
+            OcListOfFolders?.Clear(); 
             return;
         }
 
@@ -66,23 +71,23 @@ public partial class AuftragsstarterViewModel : ObservableObject
         Hilfsliste = [];
 
         // Fill ClsMenuEntries with dummy data:
-        ClsMenuEntry clsMenuEntry1 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024\\24-0051\\24-0051.PAR", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.GEOgrafFile };
+        ClsMenuEntry clsMenuEntry1 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024\24-0051\24-0051.PAR", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.GEOgrafFile };
 
-        ClsMenuEntry clsMenuEntry2 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024\\24-0051\\24-0051.KIT", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.KIVIDfile };
+        ClsMenuEntry clsMenuEntry2 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024\24-0051\24-0051.KIT", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.KIVIDfile };
 
-        ClsMenuEntry clsMenuEntry3 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024\\24-0051\\24-0051 - Kopie.KIT", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.KIVIDfile };
+        ClsMenuEntry clsMenuEntry3 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024\24-0051\24-0051 - Kopie.KIT", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.KIVIDfile };
 
-        ClsMenuEntry clsMenuEntry4 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024\\24-0051\\24-0051 - Kopie (2).KIT", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.KIVIDfile };
+        ClsMenuEntry clsMenuEntry4 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024\24-0051\24-0051 - Kopie (2).KIT", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.KIVIDfile };
 
-        ClsMenuEntry clsMenuEntry5 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\GeoArchiv\\2024\\24-0051", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.Folder };
+        ClsMenuEntry clsMenuEntry5 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\GeoArchiv\2024\24-0051", EntryOrt = Auftragsart.Archiv, EntryType = TypeOfFile.Folder };
 
-        ClsMenuEntry clsMenuEntry6 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\Auftraege\\24-0051_U\\24-0051.PAR", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.GEOgrafFile };
+        ClsMenuEntry clsMenuEntry6 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\Auftraege\24-0051_U\24-0051.PAR", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.GEOgrafFile };
 
-        ClsMenuEntry clsMenuEntry7 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\Auftraege\\24-0051_U\\24-0051_U.KIT", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.KIVIDfile };
+        ClsMenuEntry clsMenuEntry7 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\Auftraege\24-0051_U\24-0051_U.KIT", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.KIVIDfile };
 
-        ClsMenuEntry clsMenuEntry8 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\Auftraege\\24-0051_U\\24-0051 - Kopie.KIT", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.KIVIDfile };
+        ClsMenuEntry clsMenuEntry8 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\Auftraege\24-0051_U\24-0051 - Kopie.KIT", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.KIVIDfile };
 
-        ClsMenuEntry clsMenuEntry9 = new() { EntryBasePath = "C:\\AAOfficeTools_Testfiles\\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\\AAOfficeTools_Testfiles\\Auftraege\\24-0051_U", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.Folder };
+        ClsMenuEntry clsMenuEntry9 = new() { EntryBasePath = "C:\AAOfficeTools_Testfiles\Auftraege", EntryFoundSource = EntryFoundSource.GefundenUeberNormaleSuche, EntryFullPath = "C:\AAOfficeTools_Testfiles\Auftraege\24-0051_U", EntryOrt = Auftragsart.Auftraege, EntryType = TypeOfFile.Folder };
 
         Hilfsliste.Add(clsMenuEntry1);
         Hilfsliste.Add(clsMenuEntry2);
@@ -94,14 +99,19 @@ public partial class AuftragsstarterViewModel : ObservableObject
         Hilfsliste.Add(clsMenuEntry8);
         Hilfsliste.Add(clsMenuEntry9);
 
-        OcListOfFolders = [];
+        // Remove this line: OcListOfFolders = [];
 
         FnkFillSelectionWindow();
     }
 
     private void FnkFillSelectionWindow()   // Ergebnisliste, die oben ist, füllen.
     {
-        IEnumerable<IGrouping<string, ClsMenuEntry>> dgResult = Hilfsliste!.GroupBy(hs => hs.StrSortName);
+        // Clear the existing collection before adding new items
+        OcListOfFolders?.Clear(); 
+        
+        if (Hilfsliste == null) return; // Add null check for Hilfsliste
+
+        IEnumerable<IGrouping<string, ClsMenuEntry>> dgResult = Hilfsliste.GroupBy(hs => hs.StrSortName);
         string strName, strAnmerkung, strFoundSource, strFullPath, strSearchPath;
         EntryFoundSource foundSource = EntryFoundSource.GefundenUeberNormaleSuche;
         Auftragsart auftragsart = Auftragsart.Undefined;
@@ -158,9 +168,13 @@ public partial class AuftragsstarterViewModel : ObservableObject
                 theGEOgrafs.Add(new ClsMenuEntryKividOrGEOgraf() { FullPath = item.EntryFullPath, SearchPath = item.EntryBasePath, DerOrt = item.EntryOrt, TheGuid = Guid.NewGuid() });
             }
 
-
-            OcListOfFolders!.Add(new() { Anmerkung = strAnmerkung, Folder = new ClsMenuEntryFolder() { FullPath = strFullPath, SearchPath = strSearchPath, TheGuid = Guid.NewGuid(), Ort = auftragsart }, FoundSource = foundSource, Name = strName, Ort = auftragsart, Kivids = theKivids, GEOgrafs = theGEOgrafs });
+            // Make sure OcListOfFolders is not null before adding
+            OcListOfFolders?.Add(new() { Anmerkung = strAnmerkung, Folder = new ClsMenuEntryFolder() { FullPath = strFullPath, SearchPath = strSearchPath, TheGuid = Guid.NewGuid(), Ort = auftragsart }, FoundSource = foundSource, Name = strName, Ort = auftragsart, Kivids = theKivids, GEOgrafs = theGEOgrafs });
         }
-        OcListOfFolders!.Sort();
+        // Ensure OcListOfFolders is not null before sorting
+        if(OcListOfFolders != null) 
+        {
+          OcListOfFolders!.Sort(); 
+        }
     }
 }
